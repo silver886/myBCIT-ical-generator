@@ -59,8 +59,6 @@ END:VTIMEZONE
       }) => {
          meetings.forEach(
             ({type, time, days, where, date, scheduleType, instructors}) => {
-               console.log(`${id} - ${crn} - ${days} - ${where}`);
-
                const title = `${id} - ${name}`;
 
                const firstDate = new Date(date.start);
@@ -132,8 +130,6 @@ END:VTIMEZONE
          );
       },
    );
-
-   console.log('end');
 
    return calendar;
 }
