@@ -1,0 +1,120 @@
+import ical, {
+   ICalCalendar,
+   ICalCalendarMethod,
+   ICalEventRepeatingFreq,
+   ICalWeekday,
+} from 'ical-generator';
+import {getVtimezoneComponent} from '@touch4it/ical-timezones';
+import {CAMPUS, DAYS, Schedule} from './type';
+
+const timezone = 'America/Vancouver';
+
+export function generateCalendar({
+   aNumber,
+   name,
+   term,
+   createdTime,
+   courses,
+}: Schedule): ICalCalendar {
+   const calendar = ical({name: `${aNumber}(${name})/${term}`});
+   calendar.method(ICalCalendarMethod.PUBLISH);
+   calendar.scale('gregorian');
+   calendar.timezone({
+      name: timezone,
+      generator: getVtimezoneComponent,
+   });
+
+   courses.forEach(
+      ({
+         id,
+         name,
+         term,
+         crn,
+         status,
+         assignedInstructor,
+         gradeMode,
+         credits,
+         level,
+         campus,
+         meetings,
+      }) => {
+         meetings.forEach(
+            ({type, time, days, where, date, scheduleType, instructors}) => {
+               console.log(`${id} - ${crn} - ${days} - ${where}`);
+
+               const title = `${id} - ${name}`;
+
+               const firstDate = new Date(date.start);
+               while (true) {
+                  let fin = false;
+                  switch (days) {
+                     case DAYS.Monday:
+                        if (firstDate.getDay() === 1) fin = true;
+                        break;
+                     case DAYS.Tuesday:
+                        if (firstDate.getDay() === 2) fin = true;
+                        break;
+                     case DAYS.Wednesday:
+                        if (firstDate.getDay() === 3) fin = true;
+                        break;
+                     case DAYS.Thursday:
+                        if (firstDate.getDay() === 4) fin = true;
+                        break;
+                     case DAYS.Friday:
+                        if (firstDate.getDay() === 5) fin = true;
+                        break;
+                  }
+                  if (fin) break;
+                  firstDate.setTime(firstDate.getTime() + 24 * 60 * 60 * 1000);
+               }
+
+               calendar
+                  .createEvent({
+                     stamp: new Date(createdTime),
+                     start: new Date(
+                        `${firstDate.toISOString().replace(/T.*/gu, '')}, ${time.start}`,
+                     ),
+                     end: new Date(
+                        `${firstDate.toISOString().replace(/T.*/gu, '')}, ${time.end}`,
+                     ),
+                     timezone,
+                     summary: title,
+                     description: [
+                        `CRN: ${crn}`,
+                        `Type: ${scheduleType}`,
+                        `Instructor: ${instructors}`,
+                     ].join('\n'),
+                     location:
+                        campus === CAMPUS.Downtown
+                           ? `${where} | 555 Seymour St, Vancouver, BC V6B 3H6 | https://maps.app.goo.gl/TcQJFmjKywY5gY368`
+                           : undefined,
+                     repeating: {
+                        freq: ICalEventRepeatingFreq.WEEKLY,
+                        byDay:
+                           days === DAYS.Monday
+                              ? ICalWeekday.MO
+                              : days === DAYS.Tuesday
+                                ? ICalWeekday.TU
+                                : days === DAYS.Wednesday
+                                  ? ICalWeekday.WE
+                                  : days === DAYS.Thursday
+                                    ? ICalWeekday.TH
+                                    : days === DAYS.Friday
+                                      ? ICalWeekday.FR
+                                      : undefined,
+                        until: new Date(`${date.end}, 23:59`),
+                     },
+                  })
+                  .createAlarm({
+                     description: title,
+                     triggerBefore: 900,
+                  });
+            },
+         );
+      },
+   );
+
+   console.log('end');
+
+   return calendar;
+}
