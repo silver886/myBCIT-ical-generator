@@ -1,5 +1,5 @@
-import {generateCalendar} from '../src/calendar';
-import {parseTxt} from '../src/txt';
+import {generateCalendar} from '../lib/calendar';
+import {parseTxt} from '../lib/txt';
 
 export const onRequestPost: PagesFunction = async (context) => {
    return new Response(

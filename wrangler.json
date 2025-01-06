@@ -1,6 +1,8 @@
 {
+  "name": "bcit-ical",
   "compatibility_flags": [
     "nodejs_compat"
   ],
-  "compatibility_date": "2025-01-06"
+  "compatibility_date": "2025-01-06",
+  "pages_build_output_dir": "public"
 }

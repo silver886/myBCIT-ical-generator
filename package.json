@@ -1,6 +1,7 @@
 {
 	"scripts": {
-		"dev:start": "env NODE_ENV=local ts-node src/index.ts"
+		"dev": "pnpm wrangler pages dev public",
+		"deploy": "pnpm wrangler pages deploy"
 	},
 	"dependencies": {
 		"ical-generator": "^8.0.1",

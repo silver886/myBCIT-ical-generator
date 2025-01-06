@@ -29,7 +29,7 @@
       "moduleResolution": "Node",
       "baseUrl": ".",
       "paths": {
-         "@@src/*": ["src/*"]
+         "@@lib/*": ["lib/*"]
       }
    },
    "ts-node": {
@@ -38,5 +38,5 @@
       },
       "require": ["tsconfig-paths/register"]
    },
-   "include": ["./src"]
+   "include": ["lib"]
 }
