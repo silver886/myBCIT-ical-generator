@@ -5,6 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>BCIT ical Generator</title>
       <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script>
          const module = {};
       </script>
@@ -13,8 +14,8 @@
          tailwind.config = module.exports;
       </script>
    </head>
-   <body class="pt-5 max-w-screen-md mx-auto space-y-5">
-      <div>
+   <body class="max-w-screen-md mx-auto">
+      <div class="py-5">
          <h1 class="text-3xl text-center font-bold">
             ical <span class="capitalize">generator for BCIT</span>
          </h1>
@@ -23,7 +24,7 @@
             Calendar, iCloud Calendar, Outlook)
          </p>
       </div>
-      <div>
+      <div class="py-5">
          <h2 class="capitalize text-xl text-center">How to use</h2>
          <ol class="list-decimal mx-auto">
             <li>
@@ -39,7 +40,8 @@ Registration</pre
                <pre class="inline-block bg-yellow-200 text-blue-950 rounded-md">
 View individual course registration details</pre
                >
-               , or click
+               , <br />
+               or click
                <a
                   href="https://bsso-prod.bcit.ca/ssomanager/saml/login?relayState=/c/auth/SSB?pkg=bwskfshd.P_CrseSchdDetl"
                   class="uppercase text-red-800"
@@ -48,13 +50,13 @@ View individual course registration details</pre
             </li>
             <li>Save or copy the whole page.</li>
             <li>Upload or paste the content below.</li>
-            <li>Convert and download!</li>
+            <li>Generate and download!</li>
          </ol>
       </div>
-      <div>
+      <div class="py-5">
          <textarea class="w-full border h-96 rounded-md"></textarea>
          <button class="w-full text-lg py-3 bg-blue-300 rounded-md">
-            Convert
+            Generate
          </button>
       </div>
       <script type="module">
@@ -65,6 +67,15 @@ View individual course registration details</pre
                   method: 'POST',
                   body: document.querySelector('textarea').value,
                });
+
+               if (!resp.ok) {
+                  Sweetalert2.fire({
+                     icon: 'error',
+                     title: 'Failed to Generate',
+                     text: 'I am not able to parse your courses detail. If you believe this is an error, you can provide the request ID to me.',
+                     footer: `Request ID: ${await resp.text()}`,
+                  });
+               }
 
                // It is necessary to create a new blob object with mime-type explicitly set for all browsers except Chrome, but it works for Chrome too.
                const blob = new Blob(

@@ -9,20 +9,21 @@ interface Env {
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
+   const uuid = v4();
    const body = await context.request.text();
 
    await context.env.DB.prepare(
       'INSERT INTO records (uuid, continent, country, region, regionCode, city, postalCode, asn, asOrganization, timezone, longitude, latitude, colo, data) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
    )
       .bind(
-         v4(),
+         uuid,
          context.request.cf.continent,
          context.request.cf.country,
          context.request.cf.region,
          context.request.cf.regionCode,
          context.request.cf.city,
          context.request.cf.postalCode,
-         context.request.cf.asn,
+         context.request.cf.asn.toString(),
          context.request.cf.asOrganization,
          context.request.cf.timezone,
          context.request.cf.longitude,
@@ -48,7 +49,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
          },
       });
    } else {
-      return new Response('Cannot parse the given data', {
+      return new Response(uuid, {
          status: 400,
          statusText: 'Bad Request',
       });
