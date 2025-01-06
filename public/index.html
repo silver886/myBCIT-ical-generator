@@ -54,12 +54,24 @@ View individual course registration details</pre
          </ol>
       </div>
       <div class="py-5">
+         <input type="file" accept=".htm, .html, .txt" />
          <textarea class="w-full border h-96 rounded-md"></textarea>
          <button class="w-full text-lg py-3 bg-blue-300 rounded-md">
             Generate
          </button>
       </div>
       <script type="module">
+         document.querySelector('input').addEventListener('change', (i) => {
+            if (i.target.files.length == 1) {
+               const reader = new FileReader();
+               reader.addEventListener('load', (r) => {
+                  document.querySelector('textarea').textContent =
+                     r.target.result;
+               });
+               reader.readAsText(i.target.files[0]);
+            }
+         });
+
          document
             .querySelector('button')
             .addEventListener('click', async () => {
