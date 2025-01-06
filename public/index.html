@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>BCIT ical Generator</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script>
+         const module = {};
+      </script>
+      <script src="./tailwind.config.js"></script>
+      <script>
+         tailwind.config = module.exports;
+      </script>
+   </head>
+   <body class="pt-5 max-w-screen-md mx-auto space-y-5">
+      <div>
+         <h1 class="text-3xl text-center font-bold">
+            ical <span class="capitalize">generator for BCIT</span>
+         </h1>
+         <p class="text-center">
+            Convert courses details to ical file for calendar services (Google
+            Calendar, iCloud Calendar, Outlook)
+         </p>
+      </div>
+      <div>
+         <h2 class="capitalize text-xl text-center">How to use</h2>
+         <ol class="list-decimal mx-auto">
+            <li>
+               Navigate to
+               <pre class="inline-block bg-yellow-200 text-blue-950 rounded-md">
+myBCIT</pre
+               >
+               >
+               <pre class="inline-block bg-yellow-200 text-blue-950 rounded-md">
+Registration</pre
+               >
+               >
+               <pre class="inline-block bg-yellow-200 text-blue-950 rounded-md">
+View individual course registration details</pre
+               >
+               , or click
+               <a
+                  href="https://bsso-prod.bcit.ca/ssomanager/saml/login?relayState=/c/auth/SSB?pkg=bwskfshd.P_CrseSchdDetl"
+                  class="uppercase text-red-800"
+                  >here</a
+               >, to get courses detail.
+            </li>
+            <li>Save or copy the whole page.</li>
+            <li>Upload or paste the content below.</li>
+            <li>Convert and download!</li>
+         </ol>
+      </div>
+      <form action="/test" method="post">
+         <textarea
+            name=""
+            id=""
+            class="w-full border h-96 rounded-md"
+         ></textarea>
+         <button type="submit">test</button>
+      </form>
+   </body>
+</html>
