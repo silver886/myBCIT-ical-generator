@@ -11,6 +11,7 @@
 		"@types/node": "^22.10.5",
 		"ts-node": "^10.9.2",
 		"tsconfig-paths": "^4.2.0",
-		"typescript": "^5.7.2"
+		"typescript": "^5.7.2",
+		"wrangler": "^3.99.0"
 	}
 }
