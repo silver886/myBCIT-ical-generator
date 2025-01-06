@@ -3,11 +3,11 @@
 		"dev:start": "env NODE_ENV=local ts-node src/index.ts"
 	},
 	"dependencies": {
-		"@touch4it/ical-timezones": "^1.9.0",
 		"ical-generator": "^8.0.1",
 		"node-html-parser": "^7.0.1"
 	},
 	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20241230.0",
 		"@types/node": "^22.10.5",
 		"ts-node": "^10.9.2",
 		"tsconfig-paths": "^4.2.0",

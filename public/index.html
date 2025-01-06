@@ -51,13 +51,17 @@ View individual course registration details</pre
             <li>Convert and download!</li>
          </ol>
       </div>
-      <form action="/test" method="post">
-         <textarea
-            name=""
-            id=""
-            class="w-full border h-96 rounded-md"
-         ></textarea>
-         <button type="submit">test</button>
-      </form>
+      <div>
+         <textarea class="w-full border h-96 rounded-md"></textarea>
+         <button>test</button>
+      </div>
+      <script type="module">
+         document.querySelector('button').addEventListener('click', () => {
+            fetch('/generate', {
+               method: 'POST',
+               body: document.querySelector('textarea').value,
+            });
+         });
+      </script>
    </body>
 </html>

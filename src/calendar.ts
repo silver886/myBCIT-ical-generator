@@ -4,7 +4,6 @@ import ical, {
    ICalEventRepeatingFreq,
    ICalWeekday,
 } from 'ical-generator';
-import {getVtimezoneComponent} from '@touch4it/ical-timezones';
 import {CAMPUS, DAYS, Schedule} from './type';
 
 const timezone = 'America/Vancouver';
@@ -21,7 +20,27 @@ export function generateCalendar({
    calendar.scale('gregorian');
    calendar.timezone({
       name: timezone,
-      generator: getVtimezoneComponent,
+      generator: () => `
+BEGIN:VTIMEZONE
+TZID:America/Vancouver
+TZURL:https://www.tzurl.org/zoneinfo-outlook/America/Vancouver
+X-LIC-LOCATION:America/Vancouver
+BEGIN:DAYLIGHT
+TZNAME:PDT
+TZOFFSETFROM:-0800
+TZOFFSETTO:-0700
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:PST
+TZOFFSETFROM:-0700
+TZOFFSETTO:-0800
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+`,
    });
 
    courses.forEach(
