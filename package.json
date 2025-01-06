@@ -1,11 +1,12 @@
 {
 	"scripts": {
-		"dev": "pnpm wrangler pages dev public",
+		"dev": "pnpm wrangler pages dev --live-reload --d1 DB=31d2b215-9acb-4dfa-8ac6-0b544cb317d3 public",
 		"deploy": "pnpm wrangler pages deploy"
 	},
 	"dependencies": {
 		"ical-generator": "^8.0.1",
-		"node-html-parser": "^7.0.1"
+		"node-html-parser": "^7.0.1",
+		"uuid": "^11.0.4"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20241230.0",

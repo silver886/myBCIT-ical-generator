@@ -4,5 +4,12 @@
     "nodejs_compat"
   ],
   "compatibility_date": "2025-01-06",
-  "pages_build_output_dir": "public"
+  "pages_build_output_dir": "public",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "bcit-cal",
+      "database_id": "31d2b215-9acb-4dfa-8ac6-0b544cb317d3"
+    }
+  ]
 }
