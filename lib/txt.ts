@@ -1,4 +1,4 @@
-import {CAMPUS, Course, DAYS, Meeting, Schedule} from './type';
+import {CAMPUS, DAYS, Meeting, Schedule} from './type';
 
 export function parseTxt(rawTxt: string): Schedule {
    const rawTxtUnix = rawTxt.replace(/\r\n/gu, '\n').replace(/\r/gu, '\n');

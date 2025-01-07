@@ -5,8 +5,9 @@ import ical, {
    ICalWeekday,
 } from 'ical-generator';
 import {CAMPUS, DAYS, Schedule} from './type';
+import {ID} from './const';
 
-const timezone = 'America/Vancouver';
+const TIMEZONE = 'America/Vancouver';
 
 export function generateCalendar({
    aNumber,
@@ -19,7 +20,7 @@ export function generateCalendar({
    calendar.method(ICalCalendarMethod.PUBLISH);
    calendar.scale('gregorian');
    calendar.timezone({
-      name: timezone,
+      name: TIMEZONE,
       generator: () => `
 BEGIN:VTIMEZONE
 TZID:America/Vancouver
@@ -58,7 +59,7 @@ END:VTIMEZONE
          meetings,
       }) => {
          meetings.forEach(
-            ({type, time, days, where, date, scheduleType, instructors}) => {
+            ({type, time, days, where, date, scheduleType, instructors}, i) => {
                const title = `${id} - ${name}`;
 
                const firstDate = new Date(date.start);
@@ -87,6 +88,7 @@ END:VTIMEZONE
 
                calendar
                   .createEvent({
+                     id: `${ID}-${crn}-${type}-${scheduleType}-${i}`,
                      stamp: new Date(createdTime),
                      start: new Date(
                         `${firstDate.toISOString().replace(/T.*/gu, '')}, ${time.start}`,
@@ -94,7 +96,7 @@ END:VTIMEZONE
                      end: new Date(
                         `${firstDate.toISOString().replace(/T.*/gu, '')}, ${time.end}`,
                      ),
-                     timezone,
+                     timezone: TIMEZONE,
                      summary: title,
                      description: [
                         `CRN: ${crn}`,
