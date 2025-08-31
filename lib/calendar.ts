@@ -108,7 +108,7 @@ END:VTIMEZONE
                            ? `${where} | 3700 Willingdon Ave, Burnaby, BC V5G 3H2 | https://maps.app.goo.gl/emGDND1UKsj5cRrV6`
                            : campus === CAMPUS.Downtown
                               ? `${where} | 555 Seymour St, Vancouver, BC V6B 3H6 | https://maps.app.goo.gl/TcQJFmjKywY5gY368`
-                              : undefined,,
+                              : undefined,
                      repeating: {
                         freq: ICalEventRepeatingFreq.WEEKLY,
                         byDay:
