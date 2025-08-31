@@ -44,5 +44,6 @@ export enum DAYS {
 }
 
 export enum CAMPUS {
+   Burnaby = 'Burnaby',
    Downtown = 'Downtown',
 }
